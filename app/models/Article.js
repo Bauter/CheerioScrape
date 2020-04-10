@@ -12,15 +12,23 @@ var Schema = mongoose.Schema;
 //===============================================
 
 let ArticleSchema = new Schema({
+    img: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
     },
-    link: {
+    URL: {
+        type:String,
+        required:true
+    },
+    summary: {
         type: String,
         required: true
     },
-    Comments: [
+    comments: [
         {
             type: String
         }
