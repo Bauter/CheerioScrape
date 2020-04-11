@@ -18,7 +18,8 @@ let ArticleSchema = new Schema({
     },
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     URL: {
         type:String,
@@ -28,9 +29,14 @@ let ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    isSaved: {
+        type: Boolean,
+        default: false
+    },
     comments: [
         {
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: "Comment"
         }
     ]
 });
