@@ -16,31 +16,35 @@ $(document).ready(function() {
                 // For each one
                 for (var i = 0; i < data.length; i++) {
                     
+                    // Only render articles that are not already saved, validate this with conditional statement
                     if (data[i].isSaved === true) {
                         i++;
-                    }
+                    } else if (data[i].isSaved === false) {
 
-                    // An attempt to avoid displaying duplicate data
-                    //data[i].isDisplayed = true
-                    // console.log(data[i].isDisplayed)
 
-                    // if (data[i].isDisplayed === true) {
-                    //     i++
-                    // }
+                        // An attempt to avoid displaying duplicate data
+                        //data[i].isDisplayed = true
+                        // console.log(data[i].isDisplayed)
 
-                    // Append the data to the page   
-                    $("#articles").append(
-                         `<div class="box m-4">
-                         <img class="m-2" style="width:30%" src="${data[i].img}">
-                         <h5 class="title m-2" id="title">${data[i].title}</h5>
-                         <p class="text m-2 " id="summary">${data[i].summary}</p>
-                         <a class="btn btn-primary m-2 linkBtn" href="https://nytimes.com${data[i].URL}">Read the article</a>
-                         <button class="btn btn-primary m-2 save" data-id="${data[i]._id}" data-toggle="modal" data-target="#saveModal">Save article</button>
-                         </div>`
+                        // if (data[i].isDisplayed === true) {
+                        //     i++
+                        // }
 
-                    );
-                }  
-                 
+                        // Append the data to the page   
+                        $("#articles").append(
+                            `<div class="box m-4">
+                            <img class="m-2" style="width:30%" src="${data[i].img}">
+                            <h5 class="title m-2" id="title">${data[i].title}</h5>
+                            <p class="text m-2 " id="summary">${data[i].summary}</p>
+                            <a class="btn btn-primary m-2 linkBtn" href="https://nytimes.com${data[i].URL}">Read the article</a>
+                            <button class="btn btn-primary m-2 save" data-id="${data[i]._id}" data-toggle="modal" data-target="#saveModal">Save article</button>
+                            </div>`
+
+                        );
+                    }  
+
+                }
+
             });
 
         }; // END OF appendArticles() function
