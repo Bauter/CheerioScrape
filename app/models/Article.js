@@ -5,7 +5,7 @@
 const mongoose = require("mongoose");
 
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
 //===============================================
 // Define model
@@ -14,7 +14,8 @@ var Schema = mongoose.Schema;
 let ArticleSchema = new Schema({
     img: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     title: {
         type: String,
@@ -23,11 +24,13 @@ let ArticleSchema = new Schema({
     },
     URL: {
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     summary: {
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
     isSaved: {
         type: Boolean,

@@ -14,7 +14,7 @@ const app = express();
 const PORT = 3000
 
 // If deployed, use the deployed database. Otherwise use the local  database
- let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+ let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/CheerioScraperDB";
 
  mongoose.connect(MONGODB_URI);
 
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.static("./app/public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/CheerioScraperDB", { useNewUrlParser: true });
+//mongoose.connect("mongodb://localhost/CheerioScraperDB", { useNewUrlParser: true });
 
 //===================================================
 // Routes

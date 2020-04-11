@@ -1,0 +1,24 @@
+.linkBtn, .save, .delete {
+    display: inline-block;
+    color: rgb(6, 1, 10);
+    width: 30%;
+}
+
+.box {
+  border: cornflowerblue;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.save, .delete {
+    float:right;
+}
+
+#footer-div {
+    position: sticky;
+}
+
+#commentBody {
+    width: 90%;
+}

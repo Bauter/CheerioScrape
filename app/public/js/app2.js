@@ -15,12 +15,13 @@ $(document).ready(function() {
             for (var i = 0; i < data.length; i++) {
                 // Append the data to the page   
                 $("#articles").append(
-                     `<div class="card m-4">
-                     <img class="p-2" style="width:30%" src="${data[i].img}">
-                     <h5 class="card-title pl-2" id="title">${data[i].title}</h5>
-                     <p class="card-text pl-2" id="summary">${data[i].summary}</p>
-                     <a class="btn btn-primary m-2" href="https://nytimes.com${data[i].URL}">Read the article</a>
-                     <button class="btn btn-primary m-2 delete" data-id="${data[i]._id}">Delete article</button>
+                     `<div class="box m-4">
+                     <img class="m-2" style="width:30%" src="${data[i].img}">
+                     <h5 class="title m-2" id="title">${data[i].title}</h5>
+                     <p class="text m-2" id="summary">${data[i].summary}</p>
+                     <a class="btn btn-primary m-2 linkBtn" href="https://nytimes.com${data[i].URL}">Read the article</a>
+                     <button class="btn btn-primary m-2 comment" data-id="${data[i]._id}" data-toggle="modal" data-target="#commentModal">Leave a comment</button>
+                     <button class="btn btn-primary m-2 delete" data-id="${data[i]._id}" data-toggle="modal" data-target="#deleteModal">Delete article</button>
                      </div>`
                 );
             }  
@@ -47,7 +48,7 @@ $(document).ready(function() {
             method:"PUT",
             url: "/delete/" + id
         }).then(function(deleteResponse) {
-            // confirm save
+            // Confirm delete with 2 logs
             console.log(deleteResponse);
             console.log("Deleted article!");
         });

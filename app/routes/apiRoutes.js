@@ -2,9 +2,13 @@
 // Require npm packages
 //===============================================
 
+const axios = require("axios");
+const cheerio = require("cheerio");
+
 // Require all models
 let db = require("../models");
 
+// Define Routes in exported function
 module.exports = function(app) {
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,10 +21,10 @@ module.exports = function(app) {
         axios.get("https://www.nytimes.com/section/technology").then(function(response) {
 
             // Load the HTML into cheerio and save it to a variable
-            var $ = cheerio.load(response.data);
+            const $ = cheerio.load(response.data);
 
             // An empty array to save the data that we'll scrape
-            var results = {};
+            let results = {};
 
             // Scrape each element defined below 
             $(".css-ye6x8s").each(function(i, element) {
