@@ -53,7 +53,6 @@ $(document).ready(function() {
         $(document).on("click",".save", function() {
             console.log("clicked");
 
-            $("#noSaved").remove()
             // Assign id to data-id to select proper article from DB
             const id = $(this).attr("data-id");
 

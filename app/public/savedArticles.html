@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scraper</title>
+    <title>TechScraper</title>
 
      <!--BootStrapJS + Jquery CDN-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -110,10 +110,21 @@
                 </button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" id="articleComment">
+                <ul id="listOfComments">
+                    <!--Insert article comment here-->
+                </ul>
+
+                <button class="btn btn-primary" id="leaveComment">Leave a comment</button>
+                <button class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
+            </div>
+
+
+            <div class="modal-body" id="makeComment">
                 <form>
-                    <textarea id="commentBody" placeholder="Input comment here" required></textarea>
-                    <input type="submit" id="submitComment" data-dismiss="modal">
+                    <input type="text" id="commentTitle" class="form-control m-2" placeholder="Title">
+                    <textarea id="commentBody" class="form-control m-2" placeholder="Comment" required></textarea>
+                    <input type="submit" id="submitComment" class="m-2" data-dismiss="modal">
                 </form>
             </div>
 

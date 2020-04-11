@@ -135,8 +135,28 @@ module.exports = function(app) {
         });
     }); // END OF "/save/:id"
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~ Route to get article's comments
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    app.get("/getComments/:id", function(req, res) {
+        db.Article.find(
+            {_id: req.params.id }
+        ).then(function(responseArticle) {
+            res.json(responseArticle);
+        });
+    }); // END OF "/save/:id"
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~ Route to get update article's comments
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    app.put("/postCommentToArticle/:id", function(req, res) {
+        db.Article.findByIdAndUpdate(
+            {_id: req.params.id },
+            {$push: {comments: res.body.title} }
+        )
+    })
 
 }; // END OF "module"
     
