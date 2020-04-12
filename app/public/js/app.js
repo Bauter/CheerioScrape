@@ -89,7 +89,7 @@ $(document).ready(function() {
                 <p>No comments at this time</p>
                 <br>
                 <button id="leaveComment" class="btn btn-primary" data-id="${id}">Leave Comment</button>`)
-                
+            
             } else {
                 
                 for (let i=0; i< commentResponse[0].comments.length; i++) {
@@ -103,7 +103,7 @@ $(document).ready(function() {
 
                         $("#listOfComments").append(
                             `
-                            <div data-id="${commentId}>
+                            <div>
                             <li class="commentListItem mt-2">${matchedCommentResponse.body}</li>
                             <button id="deleteComment" class="close mb-2 deleteComment" data-id="${commentId}"><span class="colorRed" title="delete">X</span></button>
                             <hr class="m-4">
@@ -153,7 +153,7 @@ $(document).ready(function() {
 
         $(document).on("click", "#submitComment", function(event) {
             // Clear appended p tag from conditional statement
-            $("#noCommentsDiv").empty();
+            $("#noCommentsDiv").remove();
 
             // Clear out listed comments to avoid stacking
             $("#listOfComments").empty();
@@ -162,8 +162,8 @@ $(document).ready(function() {
             $("#commentButtonAppendHere").empty();
 
             // Save values to variables
-            
-            let commentBody = $("#commentBody").val()
+            let commentBody = $("#commentBody").val();
+
 
             $.ajax({
                 method:"PUT",
@@ -184,7 +184,11 @@ $(document).ready(function() {
 
     $(document).on("click", "#closeCommentModal", function() {
         // Clear out listed comments to avoid stacking
+        location.reload()
         $("#listOfComments").empty()
+
+        // Clear appended p tag from conditional statement
+        $("#noCommentsDiv").empty();
 
         // Clear out button to avoid duplicates
         $("#commentButtonAppendHere").empty();
@@ -198,13 +202,12 @@ $(document).ready(function() {
     $(document).on("click", ".deleteComment", function() {
         
         let id = $(this).attr("data-id")
-        
+        $("#makeCommentDiv").hide();
         // Find the parent div and delete
         $(this).parent().remove();
 
-        // Call to the backend
         $.ajax({
-            method:"GET",
+            method:"PUT",
             url:"/deleteComment/"+id 
         }).then(function(deleteCommentResponse) {
             console.log("comment deleted!")
