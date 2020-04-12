@@ -19,11 +19,10 @@ $(document).ready(function() {
                 $("#articles").append(
                      `<div class="box m-4">
                      <img class="m-2" style="width:30%" src="${data[i].img}">
-                     <h5 class="title m-2" id="title">${data[i].title}</h5>
+                     <h5 class="title m-2" id="title"><a href="https://nytimes.com${data[i].URL}">${data[i].title}</a></h5>
                      <p class="text m-2" id="summary">${data[i].summary}</p>
-                     <a class="btn btn-primary m-2 linkBtn" href="https://nytimes.com${data[i].URL}">Read the article</a>
-                     <button class="btn btn-primary m-2 viewComments" data-id="${data[i]._id}" data-toggle="modal" data-target="#commentModal">View Article Comments</button>
-                     <button class="btn btn-primary m-2 delete" data-id="${data[i]._id}" data-toggle="modal" data-target="#deleteModal">Delete article</button>
+                     <button class="btn-group btn-primary m-2 viewComments" data-id="${data[i]._id}" data-toggle="modal" data-target="#commentModal">Comments</button>
+                     <button class="btn-group btn-danger m-2 delete" data-id="${data[i]._id}" data-toggle="modal" data-target="#deleteModal">Delete</button>
                      </div>`
                 );
             }  
@@ -74,13 +73,14 @@ $(document).ready(function() {
         }).then(function(commentResponse) {
             console.log(commentResponse[0].comments);
 
+            // Check to see if this article has any comments
             if (commentResponse[0].comments.length <= 0) {
                 
                 $("#noCommentsDiv").append(`
                 <p>No comments at this time</p>
                 <br>
                 <button id="leaveComment" class="btn btn-primary" data-id="${id}">Leave Comment</button>`)
-                
+            
             } else {
                 
                 for (let i=0; i< commentResponse[0].comments.length; i++) {
@@ -120,7 +120,8 @@ $(document).ready(function() {
         $("#makeCommentDiv").hide();
         
         showComments(id)
-    });
+
+    }); // END OF ".viewComments" EL
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //  leaveComment button event listener
@@ -169,6 +170,10 @@ $(document).ready(function() {
     $(document).on("click", "#closeCommentModal", function() {
         // Clear out listed comments to avoid stacking
         $("#listOfComments").empty()
-    })
+
+        // Clear out button to avoid duplicates
+        $("#commentButtonAppendHere").empty();
+
+    }) // END OF "#closeCommentModal" EL
 
 }); // END OF "document.ready()".

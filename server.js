@@ -5,6 +5,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+
+//================================================
+// Set up express and mongoose
+//================================================
+
 // Initialize Express
 const app = express();
 
@@ -12,9 +17,9 @@ const app = express();
 const PORT = 3000
 
 // If deployed, use the deployed database. Otherwise use the local  database
- let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/CheerioScraperDB";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/CheerioScraperDB";
 
- mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI);
  
 
 // Parse request body as JSON
@@ -22,9 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("./app/public"));
-
-// Connect to the Mongo DB
-//mongoose.connect("mongodb://localhost/CheerioScraperDB", { useNewUrlParser: true });
 
 //===================================================
 // Routes
@@ -34,7 +36,6 @@ app.use(express.static("./app/public"));
 require('./app/routes/htmlRoutes')(app);
 
 // Api routes
-
 require('./app/routes/apiRoutes')(app);
 
 //==================================================

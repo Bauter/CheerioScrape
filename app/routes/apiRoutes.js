@@ -177,6 +177,6 @@ module.exports = function(app) {
         })
     })
 
-}; // END OF "module"
+}; // END OF exported module
     
 

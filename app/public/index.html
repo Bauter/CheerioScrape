@@ -18,6 +18,7 @@
 
     <!--Front-end JS file-->
     <script src="./js/app.js"></script>
+    
 
 </head>
 
@@ -62,6 +63,7 @@
         <div class="container">
           <h1 class="display-4">Welcome to TechScraper</h1>
           <p class="lead">Browse through most recent "Tech" articles from "NYTimes".</p>
+          <button  class="btn btn-info float-right" id="help" data-toggle="modal" data-target="#helpModal">need help?</button>
         </div>
     </div>
 
@@ -70,10 +72,6 @@
     <div class="container">
 
         <div id="articles">
-
-            <div id="comments">
-
-            </div>
 
         </div>
 
@@ -100,6 +98,74 @@
             </div>
         </div>
   </div>
+
+    <!-- Comment Modal -->
+  
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Comments</h5>
+                  <button type="button" class="close" id="closeCommentModal" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+  
+              <div class="modal-body" id="articleComments">
+                  <div id="noCommentsDiv">
+                      <!--If no comments found, append <p> and <button> here-->
+                  </div>
+                    
+                  <ul id="listOfComments">
+                      <!--append article comments here, then <button> to leave comment-->
+                  </ul>
+  
+                  <div id="commentButtonAppendHere">
+                      <!--"leave comment button will be appended here-->
+                  </div>
+  
+              </div>
+  
+  
+              <div class="modal-body" id="makeCommentDiv">
+                  <form>
+                      <textarea id="commentBody" class="form-control m-2" placeholder="Comment" required></textarea>
+                      <input type="submit" id="submitComment" class="m-2" data-dismiss="modal">
+                  </form>
+              </div>
+  
+          </div>
+      </div>
+  </div>
+
+  <!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Need Help?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              Browse through the scraped articles. 
+              <ul>
+                <li>The <b>"save"</b> button will allow you to save the article </li>
+                <li>The <b>"comment"</b> button will allow you to view comments and leave your own!</li>
+                <li>To view the JSON data, please see the <b>"options"</b> dropdown menu and select <em>"See the articles"</em> or <em>"See articles with comments"</em> </li>
+                <li>To scrape for new articles, please see the <b>"options"</b> dropdown menu and select <em>"Scrape and save articles to DB"</em> </li>
+              </ul>
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 
   <!--Footer-->
   <div class="card-header m-3 rounded gradient-border row" id="footer-div">
