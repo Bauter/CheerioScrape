@@ -21,7 +21,7 @@ let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/CheerioScraper
 
 mongoose.connect(MONGODB_URI);
  
-
+//mongoose.connect("mongodb://localhost/CheerioScraperDB", { useNewUrlParser: true });
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

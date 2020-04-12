@@ -102,8 +102,14 @@ $(document).ready(function() {
                         console.log(matchedCommentResponse.body);
 
                         $("#listOfComments").append(
-                            `<li class="commentListItem">${matchedCommentResponse.body}</li>
-                            <br>`
+                            `
+                            <div data-id="${commentId}>
+                            <li class="commentListItem mt-2">${matchedCommentResponse.body}</li>
+                            <button id="deleteComment" class="close mb-2 deleteComment" data-id="${commentId}"><span class="colorRed" title="delete">X</span></button>
+                            <hr class="m-4">
+                            <br>
+                            </div>
+                            `
                         );
                     
                     });
@@ -184,5 +190,28 @@ $(document).ready(function() {
         $("#commentButtonAppendHere").empty();
 
     }) // END OF "#closeCommentModal" EL
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // deleteComment button event listener
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    $(document).on("click", ".deleteComment", function() {
+        
+        let id = $(this).attr("data-id")
+        
+        // Find the parent div and delete
+        $(this).parent().remove();
+
+        // Call to the backend
+        $.ajax({
+            method:"GET",
+            url:"/deleteComment/"+id 
+        }).then(function(deleteCommentResponse) {
+            console.log("comment deleted!")
+            console.log(deleteCommentResponse);
+        })
+        
+
+    }); // END OF ".deleteComment" EL
 
 }); // END OF "document.ready()".

@@ -104,6 +104,8 @@ module.exports = function(app) {
             {$set: { isSaved: true }}
         ).then(function(response) {
             res.json(response);
+        }).catch(function(error) {
+            console.log(error);
         });
     }); // END OF "/save/:id"
 
@@ -129,9 +131,11 @@ module.exports = function(app) {
 
     app.put("/delete/:id", function(req, res) {
         db.Article.findByIdAndDelete(
-            {_id: req.params.id }
+            {_id:req.params.id}
         ).then(function(response) {
             res.json(response);
+        }).catch(function(error) {
+            console.log(error);
         });
     }); // END OF "/save/:id"
 
@@ -141,9 +145,11 @@ module.exports = function(app) {
 
     app.get("/getComments/:id", function(req, res) {
         db.Article.find(
-            {_id: req.params.id }
+            {_id:req.params.id }
         ).then(function(responseArticle) {
             res.json(responseArticle);
+        }).catch(function(error) {
+            console.log(error);
         });
     }); // END OF "/save/:id"
 
@@ -153,15 +159,21 @@ module.exports = function(app) {
 
     app.put("/postCommentToArticle/:id", function(req, res) {
         let body = req.body.commentBody
+        
         console.log(body)
         console.log(req.params.id)
+
         db.Comment.create(
             {body: body},
         ).then(function(commentResponse) {
             return db.Article.findOneAndUpdate({_id:req.params.id}, {$push: {comments: commentResponse._id}})
         }).then(function(articleCommentAddedResponse) {
             res.json(articleCommentAddedResponse);
+        }).catch(function(error) {
+            console.log(error);
         });
+
+
     }); // END OF "/postCommentToArticle/:id"
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,8 +186,31 @@ module.exports = function(app) {
         ).then(function(returnMatchedComment) {
             console.log(returnMatchedComment)
             res.json(returnMatchedComment);
-        })
-    })
+        }).catch(function(error) {
+            console.log(error);
+        });
+
+    }); // END OF "/matchCommentsToId/:commentId"
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~ Delete comment from DB
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    app.put("/deleteComment/:id", function(req, res) {
+        let id =req.params.id
+        console.log(id)
+
+        db.Comment.findByIdAndDelete(
+            {_id:id}
+            
+        ).then(function(deleteCommentResponse) {
+            return db.Article.findOneAndUpdate({comments: id}, {$pull: {comments: id}})
+            
+        }).catch(function(error) {
+            console.log(error);
+        });
+
+    }) // END OF "/deleteComment/:id"
 
 }; // END OF exported module
     

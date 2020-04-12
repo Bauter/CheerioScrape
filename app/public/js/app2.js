@@ -93,8 +93,14 @@ $(document).ready(function() {
                         console.log(matchedCommentResponse.body);
 
                         $("#listOfComments").append(
-                            `<li class="commentListItem">${matchedCommentResponse.body}</li>
-                            <br>`
+                            `
+                            <div>
+                            <li class="commentListItem mt-2">${matchedCommentResponse.body}</li>
+                            <button id="deleteComment" class="close mb-2 deleteComment" data-id="${commentId}"><span class="colorRed" title="delete">X</span></button>
+                            <hr class="m-4">
+                            <br>
+                            </div>
+                            `
                         );
                     
                     });
@@ -138,7 +144,7 @@ $(document).ready(function() {
 
         $(document).on("click", "#submitComment", function(event) {
             // Clear appended p tag from conditional statement
-            $("#noCommentsDiv").empty();
+            $("#noCommentsDiv").remove();
 
             // Clear out listed comments to avoid stacking
             $("#listOfComments").empty();
@@ -147,8 +153,8 @@ $(document).ready(function() {
             $("#commentButtonAppendHere").empty();
 
             // Save values to variables
-            
-            let commentBody = $("#commentBody").val()
+            let commentBody = $("#commentBody").val();
+
 
             $.ajax({
                 method:"PUT",
@@ -169,11 +175,38 @@ $(document).ready(function() {
 
     $(document).on("click", "#closeCommentModal", function() {
         // Clear out listed comments to avoid stacking
+        location.reload()
         $("#listOfComments").empty()
+
+        // Clear appended p tag from conditional statement
+        $("#noCommentsDiv").empty();
 
         // Clear out button to avoid duplicates
         $("#commentButtonAppendHere").empty();
 
     }) // END OF "#closeCommentModal" EL
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // deleteComment button event listener
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    $(document).on("click", ".deleteComment", function() {
+        
+        let id = $(this).attr("data-id")
+        $("#makeCommentDiv").hide();
+        // Find the parent div and delete
+        $(this).parent().remove();
+
+        $.ajax({
+            method:"PUT",
+            url:"/deleteComment/"+id 
+        }).then(function(deleteCommentResponse) {
+            console.log("comment deleted!")
+            console.log(deleteCommentResponse);
+        })
+        
+
+    }); // END OF ".deleteComment" EL
+
 
 }); // END OF "document.ready()".
