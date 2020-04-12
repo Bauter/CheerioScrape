@@ -26,3 +26,16 @@
 .colorRed {
     color: red;
 }
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+
+.clearfix {
+  @include clearfix;
+}

@@ -63,18 +63,27 @@
         <div class="container">
           <h1 class="display-4">Welcome to TechScraper</h1>
           <p class="lead">Browse through most recent "Tech" articles from "NYTimes".</p>
-          <button  class="btn btn-info float-right" id="help" data-toggle="modal" data-target="#helpModal">need help?</button>
+          
         </div>
     </div>
 
 
     <!--Article Div-->  
     <div class="container">
-
-        <div id="articles">
+      <div class="row justify-content-md-center">
+        <div id="articles" class="col-sm">
 
         </div>
 
+        <div id="help" class="col-sm">
+          <div class="card">
+            <h5 class="card-title p-2">Confused?</h5>
+            <div class="card-body">
+              <button class="btn btn-info float-right" id="help" data-toggle="modal" data-target="#helpModal">need help?</button>
+            </div>
+          </div>
+        </div>
+      </div>    
     </div>
 
     <!-- Modal -->

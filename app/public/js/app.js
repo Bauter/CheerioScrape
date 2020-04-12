@@ -23,13 +23,22 @@ $(document).ready(function() {
 
                     // Append the data to the page (unsaved)  
                     $("#articles").append(
-                        `<div class="box m-4">
-                        <img class="m-2" style="width:30%" src="${data[i].img}">
-                        <h5 class="title m-2" id="title"><a href="https://nytimes.com${data[i].URL}">${data[i].title}</a></h5>
-                        <p class="text m-2 " id="summary">${data[i].summary}</p>
+                        `<div class="card mb-6" >
+                        <div class="row no-gutters">
+                        <div  id="clear" class="col-xl-6 clearfix">
+                        <img class="m-4" src="${data[i].img}">
+                        </div>
+                        <div class="col-xl-6">
+                        <div class="card-body">
+                        <h5 class="card-title m-2" id="title"><a href="https://nytimes.com${data[i].URL}" title="Read Article!">${data[i].title}</a></h5>
+                        <p class="card-text m-2" id="summary">${data[i].summary}</p>
                         <button class="btn-group btn-primary m-2 viewComments" data-id="${data[i]._id}" data-toggle="modal" data-target="#commentModal">Comments</button>
                         <button class="btn-group btn-success m-2 save" data-id="${data[i]._id}" data-toggle="modal" data-target="#saveModal">Save</button>
-                        </div>`
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <br>`
 
                     );
                 }  
