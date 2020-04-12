@@ -20,7 +20,7 @@ $(document).ready(function() {
                     `
                     <div class="card mb-6" >
                         <div class="row no-gutters">
-                            <div  id="clear" class="col-xl-6 clearfix">
+                            <div  id="clear" class="col-xl-6">
                                 <img class="m-4" src="${data[i].img}">
                             </div>
                             <div class="col-xl-6">

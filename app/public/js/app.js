@@ -24,11 +24,11 @@ $(document).ready(function() {
                     // Append the data to the page (unsaved)  
                     $("#articles").append(
                         `<div class="card mb-6" >
-                        <div class="row no-gutters">
-                        <div  id="clear" class="col-xl-6 clearfix">
+                        <div class="row no-gutters bg-light">
+                        <div  id="clear" class="col-xl-6">
                         <img class="m-4" src="${data[i].img}">
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-6 bg-light">
                         <div class="card-body">
                         <h5 class="card-title m-2" id="title"><a href="https://nytimes.com${data[i].URL}" title="Read Article!">${data[i].title}</a></h5>
                         <p class="card-text m-2" id="summary">${data[i].summary}</p>

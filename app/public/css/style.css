@@ -1,3 +1,7 @@
+body {
+    background-color: #E9ECEF;
+}
+
 .linkBtn, .save, .delete {
     display: inline-block;
     color: rgb(6, 1, 10);
