@@ -67,22 +67,44 @@ $(document).ready(function() {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     const showComments = function(id){
+        console.log("getting ready to show comments")
         $.ajax({
             method:"GET",
             url: "/getComments/" + id
         }).then(function(commentResponse) {
-            if (commentResponse.comments.length > 0) {
+            console.log(commentResponse[0].comments);
+
+            if (commentResponse[0].comments.length <= 0) {
                 
-                for (let i=0; i< commentResponse.comments.length; i++) {
-                    $("#listOfComments").append(
-                        `<li>${commentResponse[i]}</li>
-                        <br>
-                        <button id="leaveComment" class="btn btn-primary" data-id="${id}">Leave Comment</button>`
-                    );
-                };
+                $("#noCommentsDiv").append(`
+                <p>No comments at this time</p>
+                <br>
+                <button id="leaveComment" class="btn btn-primary" data-id="${id}">Leave Comment</button>`)
+                
             } else {
-                $("#articleComment").text("No comments at this time");
-                $("#articleComment").append(`<button id="leaveComment" class="btn btn-primary" data-id="${id}">Leave Comment</button>`)
+                
+                for (let i=0; i< commentResponse[0].comments.length; i++) {
+                    let commentId = commentResponse[0].comments[i]
+                    console.log(commentId)
+                    $.ajax({
+                        method:"GET",
+                        url: "/matchCommentsToId/"+commentId
+                    }).then(function(matchedCommentResponse) {
+                        console.log(matchedCommentResponse.body);
+
+                        $("#listOfComments").append(
+                            `<li class="commentListItem">${matchedCommentResponse.body}</li>
+                            <br>`
+                        );
+                    
+                    });
+                    
+                }
+
+                $("#commentButtonAppendHere").append(
+                    `<button id="leaveComment" class="btn btn-primary" data-id="${id}">Leave Comment</button>`
+                );
+                
             }
         });
 
@@ -92,9 +114,11 @@ $(document).ready(function() {
     //  viewComments button event listener
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    $(".viewComments").on("click", function() {
+    $(document).on("click", ".viewComments", function(event) {
+        event.preventDefault();
         let id = $(this).attr("data-id")
-        $("#makeComment").hide();
+        $("#makeCommentDiv").hide();
+        
         showComments(id)
     });
 
@@ -102,8 +126,8 @@ $(document).ready(function() {
     //  leaveComment button event listener
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    $("#leaveComment").on("click", function() {
-        $("#makeComment").show()
+    $(document).on("click", "#leaveComment", function() {
+        $("#makeCommentDiv").show()
 
         let id = $(this).attr("data-id")
 
@@ -111,33 +135,40 @@ $(document).ready(function() {
         //  submitComment button event listener
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        $("#submitComment").on("click", function(event) {
-            event.preventDefault();
+        $(document).on("click", "#submitComment", function(event) {
+            // Clear appended p tag from conditional statement
+            $("#noCommentsDiv").empty();
+
+            // Clear out listed comments to avoid stacking
+            $("#listOfComments").empty();
+
+            // Clear out button to avoid duplicates
+            $("#commentButtonAppendHere").empty();
 
             // Save values to variables
-            let commentTitle = $("#commentTitle").val();
+            
             let commentBody = $("#commentBody").val()
-
-            // Create object to send, with 2 newly defined variables as property values
-            let userComment = {
-                title: commentTitle,
-                body: commentBody
-            }
 
             $.ajax({
                 method:"PUT",
                 url:"/postCommentToArticle/"+id,
-                dataset: {userComment}
-            }).then(function(response) {
+                data: {commentBody}
+            }).then(function(submitResponse) {
                 console.log("comment posted!")
+                console.log(submitResponse)
             })
         
         })
-
-
         
-    })
+    }) // END OF "#leaveComment" EL
 
-    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // closeCommentModal button event listener
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    $(document).on("click", "#closeCommentModal", function() {
+        // Clear out listed comments to avoid stacking
+        $("#listOfComments").empty()
+    })
 
 }); // END OF "document.ready()".

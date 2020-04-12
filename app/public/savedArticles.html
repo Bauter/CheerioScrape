@@ -43,7 +43,7 @@
             <!--Dropdown-->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
+                Options
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/scrapeForArticles">Scrape and save articles to DB</a>
@@ -100,29 +100,37 @@
   </div>
 
   <!-- Comment Modal -->
+  
   <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Leave a comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalLabel">Comments</h5>
+                <button type="button" class="close" id="closeCommentModal" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <div class="modal-body" id="articleComment">
+            <div class="modal-body" id="articleComments">
+                <div id="noCommentsDiv">
+                    <!--If no comments found, append <p> and <button> here-->
+                </div>
+                  
                 <ul id="listOfComments">
-                    <!--Insert article comment here-->
+                    <!--append article comments here, then <button> to leave comment-->
                 </ul>
 
-                <button class="btn btn-primary" id="leaveComment">Leave a comment</button>
-                <button class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>
+                <div id="commentButtonAppendHere">
+                    <!--"leave comment button will be appended here-->
+                </div>
+
+                <!--<button class="btn btn-primary" id="leaveComment">Leave a comment</button>
+                <button class="btn btn-primary" id="closeModal" data-dismiss="modal">Close</button>-->
             </div>
 
 
-            <div class="modal-body" id="makeComment">
+            <div class="modal-body" id="makeCommentDiv">
                 <form>
-                    <input type="text" id="commentTitle" class="form-control m-2" placeholder="Title">
                     <textarea id="commentBody" class="form-control m-2" placeholder="Comment" required></textarea>
                     <input type="submit" id="submitComment" class="m-2" data-dismiss="modal">
                 </form>

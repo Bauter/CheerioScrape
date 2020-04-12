@@ -148,14 +148,33 @@ module.exports = function(app) {
     }); // END OF "/save/:id"
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //~~~~~~~~~ Route to get update article's comments
+    //~~~~~~~~~ Route to update article's comments
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     app.put("/postCommentToArticle/:id", function(req, res) {
-        db.Article.findByIdAndUpdate(
-            {_id: req.params.id },
-            {$push: {comments: res.body.title} }
-        )
+        let body = req.body.commentBody
+        console.log(body)
+        console.log(req.params.id)
+        db.Comment.create(
+            {body: body},
+        ).then(function(commentResponse) {
+            return db.Article.findOneAndUpdate({_id:req.params.id}, {$push: {comments: commentResponse._id}})
+        }).then(function(articleCommentAddedResponse) {
+            res.json(articleCommentAddedResponse);
+        });
+    }); // END OF "/postCommentToArticle/:id"
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~ Match article comment id's and find those comments to return and display
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    app.get("/matchCommentsToId/:commentId", function(req, res) {
+        db.Comment.findById(
+            {_id:req.params.commentId}
+        ).then(function(returnMatchedComment) {
+            console.log(returnMatchedComment)
+            res.json(returnMatchedComment);
+        })
     })
 
 }; // END OF "module"

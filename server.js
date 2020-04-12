@@ -15,6 +15,7 @@ const PORT = 3000
  let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/CheerioScraperDB";
 
  mongoose.connect(MONGODB_URI);
+ 
 
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
