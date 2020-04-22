@@ -66,6 +66,7 @@ $(document).ready(function() {
         const id = $(this).attr("data-id");
 
         // Remove this Div once save button is clicked
+        //$(this).find($(this).parent(".row")).remove()
         $(this).parent().remove()
 
         //Ajax call to update DB in back end
@@ -79,7 +80,7 @@ $(document).ready(function() {
         });
 
         // Had to refresh, parent div won't remove
-        location.reload();
+        //location.reload();
 
     }); // END OF ".save" button EL.
 
@@ -229,5 +230,15 @@ $(document).ready(function() {
         
 
     }); // END OF ".deleteComment" EL
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // saveModal EL
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    $(document).on("click", ".saveModal", function() {
+        
+        location.reload()
+
+    }) // END OF ".saveModal" EL
 
 }); // END OF "document.ready()".

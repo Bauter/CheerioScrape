@@ -68,7 +68,9 @@ module.exports = function(app) {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
     app.get("/articlesScraped", function(req, res) {
-        db.Article.find({}).then(function(articlesFound) {
+        db.Article.find(
+            { isSaved: false}
+            ).then(function(articlesFound) {
             // If articles found in DB, return
             res.json(articlesFound)
         }).catch(function(error) {

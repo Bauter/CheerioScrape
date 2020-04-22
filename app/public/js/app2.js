@@ -69,6 +69,8 @@ $(document).ready(function() {
             console.log(deleteResponse);
             console.log("Deleted article!");
         });
+
+
     }); // END OF ".delete" button EL.
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -217,6 +219,16 @@ $(document).ready(function() {
         
 
     }); // END OF ".deleteComment" EL
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // closeDeleteModal EL
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    $(document).on("click", ".closeDeleteModal", function() {
+        
+        location.reload()
+
+    }) // END OF ".closeDeleteModal" EL
 
 
 }); // END OF "document.ready()".
