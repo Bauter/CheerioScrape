@@ -67,6 +67,7 @@ $(document).ready(function() {
 
         // Remove this Div once save button is clicked
         $(this).parent().remove()
+
         //Ajax call to update DB in back end
         $.ajax({
             method:"PUT",
@@ -76,6 +77,9 @@ $(document).ready(function() {
             console.log(setSaveResponse)
             console.log("Saved article!")
         });
+
+        // Had to refresh, parent div won't remove
+        location.reload();
 
     }); // END OF ".save" button EL.
 
